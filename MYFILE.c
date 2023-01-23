@@ -4,88 +4,111 @@
 #include <io.h>
 #include <malloc.h>
 #define MAX 1000
-char clipboard[MAX];
-void create_file(char a[100]){
-    char d[100];
-    if(*(a)=='+'){
-        char *ptr;
-        ptr=strchr(a,'/');
-        int mycounter=0;
-        for(int j=0;j<100;j++){
-            if(a[j]=='/'){
-                mycounter++;
-            }
-        }
-        mycounter--;
-        int counter=mycounter;
-        ptr=strtok(a,"/");
-        ptr++;
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        mkdir(ptr);
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        while(mycounter!=1){
+char clipboard[MAX]={'\0'};
+void create_file(){
+char inputting[2000];
+char a;
+char *ptr=(char*)malloc(sizeof(char)*1000);
+char b[1000]={'\0'};
+int i=0;
+int counter=0;
+a=getchar();
+int flag=2;
+a=getchar();
+FILE *myfile;
+if(a=='"'){
+        a=getchar();
+    while(1){
+        scanf("%c",&b[i]);
+      // b[i]=getchar();
+        //b[i]=getchar();
+        //printf("%c  ",b[i]);
+        //printf("%s",b);
+        if(b[i]=='/'){
+                counter++;
+          //      if(counter==1){printf("%s\n",b);}
+
+            ptr=strtok(b,"/");
+            //printf("%s \n",ptr);
             mkdir(ptr);
             chdir(ptr);
-            ptr=strtok(NULL,"/");
-            mycounter--;
-        }
-        for(int l=0;l<100;l++){
-            d[l]=*(ptr+l);
-            if(d[l]=='+'){
-                d[l]=NULL;
-                break;
+            i=0;
+            flag=1;
 
+        }
+        else{}
+        if(b[i]=='"'){
+            b[i]='\0';
+         myfile=fopen(b,"r");
+            if(myfile){
+                printf("we have it");
             }
-            else{}
-        }
-        FILE* myfile=fopen(d,"r");
-        if(myfile){
-            printf("we have it yet!");
-        }
-        else{
-            fopen(d,"w");
-        }
-        for(int i=counter;i>0;i--){
-            chdir("..");
-        }
-
+            else{
+                myfile=fopen(b,"w");
+            }
+            break;
+    }
+    if(flag==2){
+    i++;
     }
     else{
-        int mycounter=0;
-        for(int j=0;j<100;j++){
-            if(a[j]=='/'){
-                mycounter++;
-            }
-        }
-        mycounter--;
-        int counter=mycounter;
-        char *ptr;
-        ptr=strtok(a,"/");
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        mkdir(ptr);
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        while(mycounter!=2){
-            mkdir(ptr);
-            chdir(ptr);
-            ptr=strtok(NULL,"/");
-            mycounter--;
-        }
-        FILE* myfile=fopen(ptr,"r");
-        if(myfile){
-            printf("we have it yet!");
-        }
-        else{
-            fopen(ptr,"w");
-        }
-        for(int i=counter;i>0;i--){
-            chdir("..");
-        }
+        flag=2;
     }
 }
+for(int x=1;x<=counter;x++){
+    chdir("..");
+}
+}
+if(a=='/'){  while(1){
+        scanf("%c",&b[i]);
+      // b[i]=getchar();
+        //b[i]=getchar();
+        //printf("%c  ",b[i]);
+        //printf("%s",b);
+        if(b[i]=='/'){
+                counter++;
+          //      if(counter==1){printf("%s\n",b);}
+
+            ptr=strtok(b,"/");
+            //printf("%s \n",ptr);
+            mkdir(ptr);
+            chdir(ptr);
+            i=0;
+            flag=1;
+
+        }
+        else{}
+        if(b[i]=='\n'){
+            b[i]='\0';
+         myfile=fopen(b,"r");
+            if(myfile){
+                printf("we have it");
+            }
+            else{
+                myfile=fopen(b,"w");
+            }
+            break;
+    }
+    if(flag==2){
+    i++;
+    }
+    else{
+        flag=2;
+    }
+}
+for(int x=1;x<=counter;x++){
+    chdir("..");
+}
+
+}
+
+fclose(myfile);
+
+//a=getchar();
+
+
+}
+
 void copyfile(char *addres1,char *addres2){
     FILE *from=fopen(addres1,"r");
     FILE *to=fopen(addres2,"w");
@@ -104,329 +127,457 @@ return;
 
 
 
-void cat(char a[100]) {
-    char d[100];
-    char c;
-    if(*(a)=='+'){
-        char *ptr;
-        char c;
-        ptr=strchr(a,'/');
-        int mycounter=0;
-        for(int j=0;j<100;j++){
-            if(a[j]=='/'){
-                mycounter++;
-            }
-        }
-        mycounter--;
-        int counter=mycounter;
-        ptr=strtok(a,"/");
-        ptr++;
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        mkdir(ptr);
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        while(mycounter!=1){
-            mkdir(ptr);
-            chdir(ptr);
-            ptr=strtok(NULL,"/");
-            mycounter--;
-        }
-        for(int l=0;l<100;l++){
-            d[l]=*(ptr+l);
-            if(d[l]=='+'){
-                d[l]=NULL;
-                break;
+void cat() {
+char inputting[2000];
+char a;
+char *ptr=(char*)malloc(sizeof(char)*1000);
+char b[1000]={'\0'};
+int i=0;
+int counter=0;
+a=getchar();
+int flag=2;
+a=getchar();
+char f;
+FILE *myfile;
+if(a=='"'){
+        f=getchar();
+    while(1){
+        scanf("%c",&b[i]);
+      // b[i]=getchar();
+        //b[i]=getchar();
+        //printf("%c  ",b[i]);
+        //printf("%s",b);
+        if(b[i]=='/'){
+                counter++;
+          //      if(counter==1){printf("%s\n",b);}
 
-            }
-            else{}
-        }
-        FILE *myfile=fopen(d,"r");
-        if(myfile){
-            c= getc(myfile);
-            while(c!=EOF){
-                printf("%c",c);
-                c= getc(myfile);
-            }
-        }
-            else{
-                printf("we don't have it!");
-            }
-        }
-    else{
-        int mycounter = 0;
-        for (int j = 0; j < 100; j++) {
-            if (a[j] == '/') {
-                mycounter++;
-            }
-        }
-        mycounter--;
-        int counter = mycounter;
-        char *ptr;
-        ptr = strtok(a, "/");
-        //printf("%s", ptr);
-        chdir(ptr);
-        ptr = strtok(NULL, "/");
-        mkdir(ptr);
-        chdir(ptr);
-        ptr = strtok(NULL, "/");
-        while (mycounter != 2) {
+            ptr=strtok(b,"/");
+            //printf("%s \n",ptr);
             mkdir(ptr);
             chdir(ptr);
-            ptr = strtok(NULL, "/");
-            mycounter--;
+            i=0;
+            flag=1;
+
         }
-        FILE *myfile = fopen(ptr, "r");
-        if(myfile){
-        c = fgetc(myfile);
-        while (c != EOF) {
-            printf("%c", c);
-            c = fgetc(myfile);
-        }
-        fclose(myfile);
+        else{}
+        if(b[i]=='"'){
+            b[i]='\0';
+         myfile=fopen(b,"r");
+            if(myfile){
+            }
+            else{
+                printf("we dont have it for cat");
+            }
+            break;
     }
-        else{
-            printf("we don't have this file!");
-        }
+    if(flag==2){
+    i++;
+    }
+    else{
+        flag=2;
     }
 }
-void inserstr(int line,int position,char inserting[100],char a[100]){
-     char d[100];
-     int moode=0;
-     char *ptr;
-     FILE *myfile;
-    if(*(a)=='+'){
-        //char *ptr;
-        ptr=strchr(a,'/');
-        int mycounter=0;
-        for(int j=0;j<100;j++){
-            if(a[j]=='/'){
-                mycounter++;
-            }
-        }
-        mycounter--;
-        int counter=mycounter;
-        ptr=strtok(a,"/");
-        ptr++;
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        mkdir(ptr);
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        while(mycounter!=1){
-            mkdir(ptr);
-            chdir(ptr);
-            ptr=strtok(NULL,"/");
-            mycounter--;
-        }
-        for(int l=0;l<100;l++){
-            d[l]=*(ptr+l);
-            if(d[l]=='+'){
-                d[l]=NULL;
-                break;
+for(int x=1;x<=counter;x++){
+    chdir("..");
+}
+}
+if(a=='/'){  while(1){
+        scanf("%c",&b[i]);
+      // b[i]=getchar();
+        //b[i]=getchar();
+        //printf("%c  ",b[i]);
+        //printf("%s",b);
+        if(b[i]=='/'){
+                counter++;
+          //      if(counter==1){printf("%s\n",b);}
 
-            }
-            else{}
-        }
-        myfile=fopen(d,"r");
-        moode=1;
-        if(myfile){
-        }
-        else{
-            printf("we dont have it");
-            return 0;
-        }
-        // for(int i=counter;i>0;i--){
-          //  chdir("..");
-        //}
-    }
-     else{
-        int mycounter=0;
-        for(int j=0;j<100;j++){
-            if(a[j]=='/'){
-                mycounter++;
-            }
-        }
-        mycounter--;
-        int counter=mycounter;
-        //char *ptr;
-        ptr=strtok(a,"/");
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        mkdir(ptr);
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        while(mycounter!=2){
+            ptr=strtok(b,"/");
+            //printf("%s \n",ptr);
             mkdir(ptr);
             chdir(ptr);
-            ptr=strtok(NULL,"/");
-            mycounter--;
+            i=0;
+            flag=1;
+
         }
-        myfile=fopen(ptr,"r");
-        //printf("%s",ptr);
-        if(myfile){}
-        else{
-            printf("we dont have it");
-            return 0;
-        }
-        fclose(myfile);
-      //   for(int i=counter;i>0;i--){
-        //   chdir("..");
-        //}
-           moode=2;
-    fopen(ptr,"r");
-     }
-   // printf("%s",ptr);
-    int i=1;
-    int j=0;
-    char c;
-    int flag=0;
-    int flag2=0;
-    position--;
-    FILE* file2=fopen("ab.txt","w");
-    while(i<line&&c!=EOF){
+        else{}
+        if(b[i]=='\n'){
+            b[i]='\0';
+         myfile=fopen(b,"r");
+            if(myfile){
+            }
+            else{
+                printf("we dont have it for cat");
+            }
+            break;
+    }
+    if(flag==2){
+    i++;
+    }
+    else{
+        flag=2;
+    }
+}
+
+}
+
+char c;
+while(c!=EOF){
     c=fgetc(myfile);
-    //printf("%c",c);
+    printf("%c",c);
+}
+for(int x=1;x<=counter;x++){
+    chdir("..");
+}
+fclose(myfile);
+
+}
+void inserstr(){
+    char insert[1000]={'\0'};
+    char inputting[2000];
+char a;
+char *ptr=(char*)malloc(sizeof(char)*1000);
+char b[1000]={'\0'};
+int i=0;
+int counter=0;
+a=getchar();
+int flag=2;
+a=getchar();
+char f;
+FILE *myfile;
+if(a=='"'){
+        f=getchar();
+    while(1){
+        scanf("%c",&b[i]);
+      // b[i]=getchar();
+        //b[i]=getchar();
+        //printf("%c  ",b[i]);
+        //printf("%s",b);
+        if(b[i]=='/'){
+                counter++;
+          //      if(counter==1){printf("%s\n",b);}
+
+            ptr=strtok(b,"/");
+            //printf("%s \n",ptr);
+            mkdir(ptr);
+            chdir(ptr);
+            i=0;
+            flag=1;
+
+        }
+        else{}
+        if(b[i]=='"'){
+            b[i]='\0';
+         myfile=fopen(b,"r");
+            if(myfile){
+            }
+            else{
+                printf("we dont have it for insert");
+            }
+            break;
+    }
+    if(flag==2){
+    i++;
+    }
+    else{
+        flag=2;
+    }
+}
+//for(int x=1;x<=counter;x++){
+  //  chdir("..");
+//}
+}
+if(a=='/'){  while(1){
+        scanf("%c",&b[i]);
+      // b[i]=getchar();
+        //b[i]=getchar();
+        //printf("%c  ",b[i]);
+        //printf("%s",b);
+        if(b[i]=='/'){
+                counter++;
+          //      if(counter==1){printf("%s\n",b);}
+
+            ptr=strtok(b,"/");
+            //printf("%s \n",ptr);
+            mkdir(ptr);
+            chdir(ptr);
+            i=0;
+            flag=1;
+
+        }
+        else{}
+        if(b[i]=='\n'){
+            b[i]='\0';
+         myfile=fopen(b,"r");
+            if(myfile){
+            }
+            else{
+                printf("we dont have it for insert");
+            }
+            break;
+    }
+    if(flag==2){
+    i++;
+    }
+    else{
+        flag=2;
+    }
+}
+//for(int x=1;x<=counter;x++){
+  //  chdir("..");
+//}
+
+}
+int sizeofcharacters;
+int founding;
+int k;
+int flag3=0;
+for(k=0;k<1000;k++){
+    scanf("%c",&insert[k]);
+    //printf("%c",insert[k]);
+    if(insert[k]=='\n'){
+        insert[k]='\0';
+        break;
+    }
+}
+//printf("%d",k);
+//printf("%s",insert);
+int line,position;
+scanf("%d %d",&line,&position);
+sizeofcharacters=k;
+    for(int k=0;k<1000;k++){
+        if(insert[k]=='\\'&&insert[k+1]=='\\'){
+                flag3=2;
+                founding=k;
+            break;
+        }
+    }
+    if(flag!=2){
+for(k=0;k<1000;k++){
+    if(insert[k]=='\\'&&insert[k+1]=='n'){
+    flag3=1;
+    founding=k;
+    printf("hi");
+    break;
+    }
+}
+    }
+FILE *file2=fopen("ab.txt","w");
+i=1;
+int j=0;
+char c;
+int flag4=0;
+int flag5=0;
+int flag6=0;
+while(i!=line){
+    c=fgetc(myfile);
     fputc(c,file2);
     if(c=='\n'){
         i++;
     }
-    }
-    if(c==EOF){
-            flag2=1;
-    for(i;i<line;i++){
+}
+while(j!=position&&flag4!=1){
+        flag5=1;
+        //printf("hi");
+    c=fgetc(myfile);
+    if(c=='\n'){
+            flag4=1;
+            flag6=1;
+      for(j;j<=position-1;j++){
+        fputc(' ',file2);
+      }
+      if(flag3==0){
+        for(int l=0;l<=sizeofcharacters;l++){
+            fputc(insert[l],file2);
+        }
         fputc('\n',file2);
-    }
-    }
-    while(j<position){
-        c=fgetc(myfile);
-        if(c=='\n'){
-            for(j;j<position;j++){
-                fputc(' ',file2);
+        break;
+      }
+        if(flag3==1){
+            for(int l=0;l<founding;l++){
+                fputc(insert[l],file2);
             }
-            flag=1;
+            fputc('\n',file2);
+            int h=founding+2;
+            for(h;h<sizeofcharacters;h++){
+                fputc(insert[h],file2);
+            }
             break;
         }
-        fputc(c,file2);
-        j++;
-    }
-    if(flag==1){
-        fputs(inserting,file2);
-        fputc('\n',file2);
-    }
-    else{
-    fputs(inserting,file2);
-    }
-    while(c!=EOF){
+        if(flag3==2){
+            for(int l=0;l<founding;l++){
+                fputc(insert[l],file2);
+            }
+            fputc('\\',file2);
+            fputc('n',file2);
+            int h=founding+3;
+            for(h;h<sizeofcharacters;h++){
+                fputc(insert[h],file2);
+            }
+            break;
+        }
+        flag6=1;
+      }
+      if(flag6!=1){
+    fputc(c,file2);
+    j++;
+      }
+}
+if(flag4==0&&flag5==1){
+      if(flag3==0){
+        for(int l=0;l<sizeofcharacters;l++){
+            fputc(insert[l],file2);
+            flag5=2;
+        }
+      }
+        if(flag3==1){
+            for(int l=0;l<founding;l++){
+                fputc(insert[l],file2);
+            }
+            fputc('\n',file2);
+            int h=founding+2;
+            for(h;h<sizeofcharacters;h++){
+                fputc(insert[h],file2);
+            }
+            flag5=2;
+        }
+        if(flag3==2){
+            for(int l=0;l<founding;l++){
+                fputc(insert[l],file2);
+            }
+            fputc('\\',file2);
+            fputc('n',file2);
+            int h=founding+3;
+            for(h;h<sizeofcharacters;h++){
+                fputc(insert[h],file2);
+            }
+        }
+        flag5=2;
+      }
+      while(c!=EOF){
         c=fgetc(myfile);
         fputc(c,file2);
-    }
-    if(flag2==0){
-    fseek(file2,-1,SEEK_END);
-    fputc(' ',file2);
-    }
-    if(moode==1){
-            fclose(myfile);
-    copyfile("ab.txt",d);
+      }
+fclose(myfile);
+fclose(file2);
+copyfile("ab.txt",b);
+for(int x=1;x<=counter;x++){
+    chdir("..");
 }
-if(moode==2){
-        fclose(myfile);
-        copyfile("ab.txt",ptr);
-    }
-}
-void removestr(int line,int position,int removing,char back_or_forward,char a[100]){
-  char d[100];
-     int moode=0;
-     char *ptr;
-     FILE *myfile;
-     int flag;
-    if(*(a)=='+'){
-        //char *ptr;
-        ptr=strchr(a,'/');
-        int mycounter=0;
-        for(int j=0;j<100;j++){
-            if(a[j]=='/'){
-                mycounter++;
-            }
-        }
-        mycounter--;
-        int counter=mycounter;
-        ptr=strtok(a,"/");
-        ptr++;
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        mkdir(ptr);
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        while(mycounter!=1){
-            mkdir(ptr);
-            chdir(ptr);
-            ptr=strtok(NULL,"/");
-            mycounter--;
-        }
-        for(int l=0;l<100;l++){
-            d[l]=*(ptr+l);
-            if(d[l]=='+'){
-                d[l]=NULL;
-                break;
 
-            }
-            else{}
-        }
-        myfile=fopen(d,"r");
-        moode=1;
-        if(myfile){
-        }
-        else{
-            printf("we dont have it");
-            return 0;
-        }
-        // for(int i=counter;i>0;i--){
-          //  chdir("..");
-        //}
-    }
-     else{
-        int mycounter=0;
-        for(int j=0;j<100;j++){
-            if(a[j]=='/'){
-                mycounter++;
-            }
-        }
-        mycounter--;
-        int counter=mycounter;
-        //char *ptr;
-        ptr=strtok(a,"/");
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        mkdir(ptr);
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        while(mycounter!=2){
+}
+void removestr(){
+char inputting[2000];
+int line;int removing;int position;
+char back_or_forward;
+char a;
+char *ptr=(char*)malloc(sizeof(char)*1000);
+char b[1000]={'\0'};
+int i=0;
+int counter=0;
+a=getchar();
+int flagee=2;
+char f;
+a=getchar();
+FILE *myfile;
+if(a=='"'){
+        f=getchar();
+    while(1){
+        scanf("%c",&b[i]);
+      // b[i]=getchar();
+        //b[i]=getchar();
+        //printf("%c  ",b[i]);
+        //printf("%s",b);
+        if(b[i]=='/'){
+                counter++;
+          //      if(counter==1){printf("%s\n",b);}
+
+            ptr=strtok(b,"/");
+         //   printf("%s \n",ptr);
             mkdir(ptr);
             chdir(ptr);
-            ptr=strtok(NULL,"/");
-            mycounter--;
+            i=0;
+            flagee=1;
+
         }
-        myfile=fopen(ptr,"r");
-        //printf("%s",ptr);
-        if(myfile){}
-        else{
-            printf("we dont have it");
-            return 0;
+        else{}
+        if(b[i]=='"'){
+            b[i]='\0';
+         myfile=fopen(b,"r");
+            if(myfile){
+            }
+            else{
+                printf("we dont have it for remove");
+            }
+            break;
+    }
+    if(flagee==2){
+    i++;
+    }
+    else{
+        flagee=2;
+    }
+}
+//for(int x=1;x<=counter;x++){
+  //  chdir("..");
+//}
+}
+if(a=='/'){  while(1){
+        scanf("%c",&b[i]);
+      // b[i]=getchar();
+        //b[i]=getchar();
+        //printf("%c  ",b[i]);
+        //printf("%s",b);
+        if(b[i]=='/'){
+                counter++;
+          //      if(counter==1){printf("%s\n",b);}
+
+            ptr=strtok(b,"/");
+            //printf("%s \n",ptr);
+            mkdir(ptr);
+            chdir(ptr);
+            i=0;
+            flagee=1;
+
         }
-       // fclose(myfile);
-      //   for(int i=counter;i>0;i--){
-        //   chdir("..");
-        //}
-           moode=2;
-     }        if (back_or_forward=='b'){
+        else{}
+        if(b[i]=='\n'){
+            b[i]='\0';
+           // printf("%s",b);
+         myfile=fopen(b,"r");
+            if(myfile){
+                   // printf("yes");
+            }
+            else{
+                printf("we dont have it for remove");
+            }
+            break;
+    }
+    if(flagee==2){
+    i++;
+    }
+    else{
+        flagee=2;
+    }
+}
+//for(int x=1;x<=counter;x++){
+  //  chdir("..");
+//}
+
+}
+    int flag=0;
+    //FILE *myfile;
+    scanf("%d %d",&line,&position);
+    scanf("%d",&removing);
+   // back_or_forward=getchar();
+   // printf("%d %d %d %c",line,position,removing,back_or_forward);
+if (back_or_forward=='b'){
             flag=1;
         }
         else{
             flag=2;
         }
     char c;
-    int i=1;
+    i=1;
     int j=0;
     int tell;
    // FILE* myfile=fopen("C:\\Users\\AmirAli\\Desktop\\root\\dot\\d.txt","r");//should be change to myptr or d
@@ -450,13 +601,10 @@ void removestr(int line,int position,int removing,char back_or_forward,char a[10
         fclose(myfile);
         int definingchange;
       //  myfile=fopen("C:\\Users\\AmirAli\\Desktop\\root\\dot\\d.txt","r");//should be change to d or myptr
-      if(moode==2){
-            fopen(ptr,"r");
-      }
-      if(moode==1){
-        fopen(d,"r");
-      }
+//            fopen(b,"r");
+
         file2=fopen("ab.txt","w");
+        myfile=fopen(b,"r");
         if (flag==1){
                 definingchange=tell-removing;
         while(c!=EOF){
@@ -473,12 +621,7 @@ void removestr(int line,int position,int removing,char back_or_forward,char a[10
         }
 fclose(myfile);
 fclose(file2);
-if(moode==1){
-    copyfile("ab.txt",d);
-}
-if(moode==2){
-    copyfile("ab.txt",ptr);
-}
+copyfile("ab.txt",b);
 }
 else{ definingchange=tell+removing;
                 while(c!=EOF){
@@ -496,109 +639,120 @@ else{ definingchange=tell+removing;
         }
 fclose(myfile);
 fclose(file2);
-if(moode==1){
-    copyfile("ab.txt",d);
-}
-if(moode==2){
-    copyfile("ab.txt",ptr);
-}
+copyfile("ab.txt",b);
 
+}
+for(int x=1;x<=counter;x++){
+    chdir("..");
 }
 
 
 
 
 
-
 }
-void copystr(int line,int position,int copying,char back_or_forward,char a[100]){
-  char d[100];
-     int moode=0;
-     int flag;
-     char *ptr;
-     FILE *myfile;
-    if(*(a)=='+'){
-        //char *ptr;
-        ptr=strchr(a,'/');
-        int mycounter=0;
-        for(int j=0;j<100;j++){
-            if(a[j]=='/'){
-                mycounter++;
-            }
-        }
-        mycounter--;
-        int counter=mycounter;
-        ptr=strtok(a,"/");
-        ptr++;
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        mkdir(ptr);
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        while(mycounter!=1){
+void copystr(){
+char inputting[2000];
+char a;
+char *ptr=(char*)malloc(sizeof(char)*1000);
+char b[1000]={'\0'};
+int i=0;
+int counter=0;
+a=getchar();
+int flagee=2;
+char f;
+a=getchar();
+FILE *myfile;
+if(a=='"'){
+        f=getchar();
+    while(1){
+        scanf("%c",&b[i]);
+      // b[i]=getchar();
+        //b[i]=getchar();
+        //printf("%c  ",b[i]);
+        //printf("%s",b);
+        if(b[i]=='/'){
+                counter++;
+          //      if(counter==1){printf("%s\n",b);}
+
+            ptr=strtok(b,"/");
+         //   printf("%s \n",ptr);
             mkdir(ptr);
             chdir(ptr);
-            ptr=strtok(NULL,"/");
-            mycounter--;
-        }
-        for(int l=0;l<100;l++){
-            d[l]=*(ptr+l);
-            if(d[l]=='+'){
-                d[l]=NULL;
-                break;
+            i=0;
+            flagee=1;
 
+        }
+        else{}
+        if(b[i]=='"'){
+            b[i]='\0';
+         myfile=fopen(b,"r");
+            if(myfile){
             }
-            else{}
-        }
-        myfile=fopen(d,"r");
-        moode=1;
-        if(myfile){
-        }
-        else{
-            printf("we dont have it");
-            return 0;
-        }
-        // for(int i=counter;i>0;i--){
-          //  chdir("..");
-        //}
+            else{
+                printf("we dont have it for copy");
+            }
+            break;
     }
-     else{
-        int mycounter=0;
-        for(int j=0;j<100;j++){
-            if(a[j]=='/'){
-                mycounter++;
-            }
-        }
-        mycounter--;
-        int counter=mycounter;
-        //char *ptr;
-        ptr=strtok(a,"/");
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        mkdir(ptr);
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        while(mycounter!=2){
+    if(flagee==2){
+    i++;
+    }
+    else{
+        flagee=2;
+    }
+}
+//for(int x=1;x<=counter;x++){
+  //  chdir("..");
+//}
+}
+if(a=='/'){  while(1){
+        scanf("%c",&b[i]);
+      // b[i]=getchar();
+        //b[i]=getchar();
+        //printf("%c  ",b[i]);
+        //printf("%s",b);
+        if(b[i]=='/'){
+                counter++;
+          //      if(counter==1){printf("%s\n",b);}
+
+            ptr=strtok(b,"/");
+            //printf("%s \n",ptr);
             mkdir(ptr);
             chdir(ptr);
-            ptr=strtok(NULL,"/");
-            mycounter--;
+            i=0;
+            flagee=1;
+
         }
-        myfile=fopen(ptr,"r");
-        //printf("%s",ptr);
-        if(myfile){}
-        else{
-            printf("we dont have it");
-            return 0;
-        }
-       // fclose(myfile);
-      //   for(int i=counter;i>0;i--){
-        //   chdir("..");
-        //}
-           moode=2;
-    //fopen(ptr,"r");
-     }
+        else{}
+        if(b[i]=='\n'){
+            b[i]='\0';
+           // printf("%s",b);
+         myfile=fopen(b,"r");
+            if(myfile){
+                   // printf("yes");
+            }
+            else{
+                printf("we dont have it for copy");
+            }
+            break;
+    }
+    if(flagee==2){
+    i++;
+    }
+    else{
+        flagee=2;
+    }
+}
+//for(int x=1;x<=counter;x++){
+  //  chdir("..");
+//}
+
+}
+         int flag=0;
          int num=0;
+         int line,position,copying;
+         scanf("%d %d %d",&line,&position,&copying);
+         char back_or_forward=getchar();
         if (back_or_forward=='b'){
             flag=1;
         }
@@ -606,7 +760,7 @@ void copystr(int line,int position,int copying,char back_or_forward,char a[100])
             flag=2;
         }
     char c;
-    int i=1;
+    i=1;
     int j=0;
     int tell;
         c=fgetc(myfile);
@@ -627,12 +781,7 @@ void copystr(int line,int position,int copying,char back_or_forward,char a[100])
         tell=ftell(myfile);
         fclose(myfile);
         int definingchange;
-        if(moode==1){
-                myfile=fopen(d,"r");
-        }
-        if(moode==2){
-            myfile=fopen(ptr,"r");
-        }
+        myfile=fopen(b,"r");
         //should be change to d or myptr
 //        file2=fopen("ab.txt","w");
         if (flag==1){
@@ -668,6 +817,11 @@ else{ definingchange=tell+copying;
             }
         }
 fclose(myfile);
+for(int x=1;x<=counter;x++){
+    chdir("..");
+}
+
+//printf("%s",clipboard);
 
 }
 
@@ -675,103 +829,123 @@ fclose(myfile);
 
 
 }
-void cutstr(int line,int position,int removing,char back_or_forward,char a[100]){  char d[100];
-     int moode=0;
-     char *ptr;
-     FILE *myfile;
+void cutstr(){
+    char inputting[2000];
+char a;
+int line,position,removing;
+char back_or_forward;
+char *ptr=(char*)malloc(sizeof(char)*1000);
+char b[1000]={'\0'};
+int i=0;
+int counter=0;
+a=getchar();
+int flagee=2;
+char f;
+a=getchar();
+FILE *myfile;
+if(a=='"'){
+        f=getchar();
+    while(1){
+        scanf("%c",&b[i]);
+      // b[i]=getchar();
+        //b[i]=getchar();
+        //printf("%c  ",b[i]);
+        //printf("%s",b);
+        if(b[i]=='/'){
+                counter++;
+          //      if(counter==1){printf("%s\n",b);}
+
+            ptr=strtok(b,"/");
+         //   printf("%s \n",ptr);
+            mkdir(ptr);
+            chdir(ptr);
+            i=0;
+            flagee=1;
+
+        }
+        else{}
+        if(b[i]=='"'){
+            b[i]='\0';
+         myfile=fopen(b,"r");
+            if(myfile){
+            }
+            else{
+                printf("we dont have it for cut");
+            }
+            break;
+    }
+    if(flagee==2){
+    i++;
+    }
+    else{
+        flagee=2;
+    }
+}
+//for(int x=1;x<=counter;x++){
+  //  chdir("..");
+//}
+}
+if(a=='/'){  while(1){
+        scanf("%c",&b[i]);
+      // b[i]=getchar();
+        //b[i]=getchar();
+        //printf("%c  ",b[i]);
+        //printf("%s",b);
+        if(b[i]=='/'){
+                counter++;
+          //      if(counter==1){printf("%s\n",b);}
+
+            ptr=strtok(b,"/");
+            //printf("%s \n",ptr);
+            mkdir(ptr);
+            chdir(ptr);
+            i=0;
+            flagee=1;
+
+        }
+        else{}
+        if(b[i]=='\n'){
+            b[i]='\0';
+           // printf("%s",b);
+         myfile=fopen(b,"r");
+            if(myfile){
+                   // printf("yes");
+            }
+            else{
+                printf("we dont have it for cut");
+            }
+            break;
+    }
+    if(flagee==2){
+    i++;
+    }
+    else{
+        flagee=2;
+    }
+}
+//for(int x=1;x<=counter;x++){
+  //  chdir("..");
+//}
+
+}
+     //FILE *myfile;
      int flag;
      int num=0;
-    if(*(a)=='+'){
-        //char *ptr;
-        ptr=strchr(a,'/');
-        int mycounter=0;
-        for(int j=0;j<100;j++){
-            if(a[j]=='/'){
-                mycounter++;
-            }
-        }
-        mycounter--;
-        int counter=mycounter;
-        ptr=strtok(a,"/");
-        ptr++;
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        mkdir(ptr);
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        while(mycounter!=1){
-            mkdir(ptr);
-            chdir(ptr);
-            ptr=strtok(NULL,"/");
-            mycounter--;
-        }
-        for(int l=0;l<100;l++){
-            d[l]=*(ptr+l);
-            if(d[l]=='+'){
-                d[l]=NULL;
-                break;
 
-            }
-            else{}
-        }
-        myfile=fopen(d,"r");
-        moode=1;
-        if(myfile){
-        }
-        else{
-            printf("we dont have it");
-            return 0;
-        }
-        // for(int i=counter;i>0;i--){
-          //  chdir("..");
-        //}
-    }
-     else{
-        int mycounter=0;
-        for(int j=0;j<100;j++){
-            if(a[j]=='/'){
-                mycounter++;
-            }
-        }
-        mycounter--;
-        int counter=mycounter;
-        //char *ptr;
-        ptr=strtok(a,"/");
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        mkdir(ptr);
-        chdir(ptr);
-        ptr=strtok(NULL,"/");
-        while(mycounter!=2){
-            mkdir(ptr);
-            chdir(ptr);
-            ptr=strtok(NULL,"/");
-            mycounter--;
-        }
-        myfile=fopen(ptr,"r");
-        //printf("%s",ptr);
-        if(myfile){}
-        else{
-            printf("we dont have it");
-            return 0;
-        }
-       // fclose(myfile);
-      //   for(int i=counter;i>0;i--){
-        //   chdir("..");
-        //}
-           moode=2;
-     }        if (back_or_forward=='b'){
-            flag=1;
-        }
-        else{
-            flag=2;
-        }
     char c;
-    int i=1;
+    i=1;
     int j=0;
     int tell;
+    scanf("%d %d %d",&line,&position,&removing);
+    back_or_forward=getchar();
+    if(back_or_forward=='b'){
+        flag=1;
+    }
+    else{
+        flag=2;
+    }
    // FILE* myfile=fopen("C:\\Users\\AmirAli\\Desktop\\root\\dot\\d.txt","r");//should be change to myptr or d
-    FILE* file2=fopen("ab.txt","w");
+    FILE* file2;
         c=fgetc(myfile);
         while(c!=EOF){
             c=getc(myfile);
@@ -791,12 +965,7 @@ void cutstr(int line,int position,int removing,char back_or_forward,char a[100])
         fclose(myfile);
         int definingchange;
       //  myfile=fopen("C:\\Users\\AmirAli\\Desktop\\root\\dot\\d.txt","r");//should be change to d or myptr
-      if(moode==2){
-            fopen(ptr,"r");
-      }
-      if(moode==1){
-        fopen(d,"r");
-      }
+      myfile=fopen(b,"r");
         file2=fopen("ab.txt","w");
         if (flag==1){
                 definingchange=tell-removing;
@@ -816,12 +985,7 @@ void cutstr(int line,int position,int removing,char back_or_forward,char a[100])
         }
 fclose(myfile);
 fclose(file2);
-if(moode==1){
-    copyfile("ab.txt",d);
-}
-if(moode==2){
-    copyfile("ab.txt",ptr);
-}
+copyfile("ab.txt",b);
 }
 else{ definingchange=tell+removing;
                 while(c!=EOF){
@@ -841,131 +1005,194 @@ else{ definingchange=tell+removing;
         }
 fclose(myfile);
 fclose(file2);
-if(moode==1){
-    copyfile("ab.txt",d);
-}
-if(moode==2){
-    copyfile("ab.txt",ptr);
-}
+copyfile("ab.txt",b);
 
 }
 
 
-
+for(int x=1;x<=counter;x++){
+    chdir("..");
+}
 
 
 
 
 }
+void pastestr(){
+char inputting[2000];
+char a;
+int line,position;
+char *ptr=(char*)malloc(sizeof(char)*1000);
+char b[1000]={'\0'};
+int i=0;
+int counter=0;
+a=getchar();
+int flagee=2;
+char f;
+a=getchar();
+FILE *myfile;
+if(a=='"'){
+        f=getchar();
+    while(1){
+        scanf("%c",&b[i]);
+      // b[i]=getchar();
+        //b[i]=getchar();
+        //printf("%c  ",b[i]);
+        //printf("%s",b);
+        if(b[i]=='/'){
+                counter++;
+          //      if(counter==1){printf("%s\n",b);}
+
+            ptr=strtok(b,"/");
+         //   printf("%s \n",ptr);
+            mkdir(ptr);
+            chdir(ptr);
+            i=0;
+            flagee=1;
+
+        }
+        else{}
+        if(b[i]=='"'){
+            b[i]='\0';
+         myfile=fopen(b,"r");
+            if(myfile){
+            }
+            else{
+                printf("we dont have it for paste");
+            }
+            break;
+    }
+    if(flagee==2){
+    i++;
+    }
+    else{
+        flagee=2;
+    }
+}
+//for(int x=1;x<=counter;x++){
+  //  chdir("..");
+//}
+}
+if(a=='/'){  while(1){
+        scanf("%c",&b[i]);
+      // b[i]=getchar();
+        //b[i]=getchar();
+        //printf("%c  ",b[i]);
+        //printf("%s",b);
+        if(b[i]=='/'){
+                counter++;
+          //      if(counter==1){printf("%s\n",b);}
+
+            ptr=strtok(b,"/");
+            //printf("%s \n",ptr);
+            mkdir(ptr);
+            chdir(ptr);
+            i=0;
+            flagee=1;
+
+        }
+        else{}
+        if(b[i]=='\n'){
+            b[i]='\0';
+           // printf("%s",b);
+         myfile=fopen(b,"r");
+            if(myfile){
+                   // printf("yes");
+            }
+            else{
+                printf("we dont have it for paste");
+            }
+            break;
+    }
+    if(flagee==2){
+    i++;
+    }
+    else{
+        flagee=2;
+    }
+}
+//for(int x=1;x<=counter;x++){
+  //  chdir("..");
+//}
+
+}  scanf("%d %d",&line,&position);
+     FILE* file2=fopen("ab.txt","w");
+    i=1;
+    int j=0;
+    int k=0;
+    int flag=0;
+    char c;
+   // int flag=0;
+  // c=fgetc(myfile);
+   //printf("%c",c);
+    while(c!=EOF){
+        c=fgetc(myfile);
+        c=fputc(c,file2);
+      //  printf("%c",c);
+        if(c=='\n'){
+            i++;
+        }
+        if(i==line){
+            while(j!=position){
+                c=fgetc(myfile);
+                fputc(c,file2);
+                j++;
+                flag=1;
+            }
+        }
+        if(flag==1){
+            while(k!=MAX){
+            fputc(clipboard[k],file2);
+            k++;
+            if(clipboard[k]=='\0')
+                break;
+            }
+            flag=0;
+        }
+    }
+    fclose(myfile);
+    fclose(file2);
+    copyfile("ab.txt",b);
+    char clipboard[MAX]={'\0'};
+
+for(int x=1;x<=counter;x++){
+    chdir("..");
+}
+
+
+     }
 
 
 int main(){
     char *myptr=malloc(sizeof(char)*100);//for finding cat function
-    char a[100];
-    scanf("%[^\n]",a);
-    if(strncmp(a,"cat-file",8)==0){
-            if(a[8]=='+'){
-                myptr=a;
-                myptr=myptr+8;
-            }
-            else{
-     myptr= strchr(a,'/');
-            }
-      cat(myptr);
+    char a[1000];
+    while(1){
+    scanf("%s",a);
+    if(strcmp(a,"cat-file")==0){
+      cat();
     }
     else{}
-    if(strncmp(a,"create",6)==0){ //for finding create_file function
-        if(a[11]=='+'){
-            myptr=a;
-            myptr=myptr+11;
-        }
-        else{
-            myptr=strchr(a,'/');
-        }
-        create_file(myptr);
+    if(strcmp(a,"create-file")==0){ //for finding create_file function
+        create_file();
     }
-    if(strncmp(a,"insertstr",9)==0){
-        if(a[14]=='+'){
-            myptr=a;
-            myptr=myptr+14;
-        }
-        else{
-            myptr=strchr(a,'/');
-        }
-        //myptr=strtok(a,'-');
-        char inserting[100];
-        char f;
-        int line;
-        int positon;
-        scanf("%s",inserting);
-        scanf("%d",&line);
-        f=getchar();
-        scanf("%d",&positon);
-        inserstr(line,positon,inserting,myptr);
+    if(strcmp(a,"insertstr-file")==0){
+        inserstr();
     }
-    if(strncmp(a,"removestr",9)==0){
-        if(a[14]=='+'){
-            myptr=a;
-            myptr=myptr+14;
-        }
-        else{
-            myptr=strchr(a,'/');
-        }
-        int removing;
-        int line;
-        int position;
-        char back_or_forward;
-        char h;
-        scanf("%d %d",&line,&position);
-        printf("pos:");
-        scanf("%d",&removing);
-        h=getchar();
-        back_or_forward=getchar();
-        removestr(line,position,removing,back_or_forward,myptr);
+    if(strcmp(a,"removestr-file")==0){
+        removestr();
     }
-       if(strncmp(a,"copystr",7)==0){
-        if(a[12]=='+'){
-            myptr=a;
-            myptr=myptr+12;
-        }
-        else{
-            myptr=strchr(a,'/');
-        }
-        int copying;
-        int line;
-        int position;
-        char back_or_forward;
-        char h;
-        scanf("%d %d",&line,&position);
-        printf("pos:");
-        scanf("%d",&copying);
-        h=getchar();
-        back_or_forward=getchar();
-        copystr(line,position,copying,back_or_forward,myptr);
+       if(strcmp(a,"copystr-file")==0){
+        copystr();
     }
-       if(strncmp(a,"cutstr",6)==0){
-        if(a[11]=='+'){
-            myptr=a;
-            myptr=myptr+11;
-        }
-        else{
-            myptr=strchr(a,'/');
-        }
-        int removing;
-        int line;
-        int position;
-        char back_or_forward;
-        char h;
-        scanf("%d %d",&line,&position);
-        printf("pos:");
-        scanf("%d",&removing);
-        h=getchar();
-        back_or_forward=getchar();
-        cutstr(line,position,removing,back_or_forward,myptr);
+       if(strcmp(a,"cutstr-file")==0){
+        cutstr();
+       }
+    if(strncmp(a,"exit",4)==0){
+        return 0;
     }
-
+    if(strcmp(a,"pastestr-file")==0){
+        pastestr();
+    }
 
 }
-
-
-
+}
